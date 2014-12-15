@@ -2,6 +2,7 @@ package com.joy.threadpool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class ThreadPool {
@@ -36,10 +37,9 @@ public class ThreadPool {
 	 * @param noOfTasks
 	 */
 	public ThreadPool(int noOfWorkerThreads,int noOfTasks){
-		taskQueue = BlockingQueue<Runnable>(noOfTasks);
+		taskQueue = new ArrayBlockingQueue<Runnable>(noOfTasks);
 	}
 	
 	public void addTask(Runnable task){
-		this.taskQueue.
 	}
 }
