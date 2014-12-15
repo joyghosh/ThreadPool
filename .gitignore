@@ -1,2 +1,5 @@
 #all compiled byte code
 *.class
+
+#bin folder
+bin/
