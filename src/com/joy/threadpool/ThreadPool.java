@@ -40,6 +40,6 @@ public class ThreadPool {
 	}
 	
 	public void addTask(Runnable task){
-//		this.taskQueue.
+		this.taskQueue.
 	}
 }
