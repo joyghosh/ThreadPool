@@ -42,8 +42,17 @@ public class ThreadPool {
 	public ThreadPool(int noOfWorkerThreads,int noOfTasks){
 		this.taskQueue = new ArrayBlockingQueue<Runnable>(noOfTasks);
 		this.counter = noOfTasks;
-	}
 	
+		//creating workers in the pool.
+		for(int i = 0; i< noOfWorkerThreads;i++){
+			threads.add(new WorkerThread(this));
+		}
+				
+		//starting the worker threads in pool.
+		for(WorkerThread w:threads){
+			w.start();
+		}
+	}
 	
 	/**
 	 * Add task to Thread

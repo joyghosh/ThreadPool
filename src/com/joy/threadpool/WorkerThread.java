@@ -11,7 +11,6 @@ public class WorkerThread extends Thread{
 	public void run(){
 		while(!this.isStopped){
 			try{
-				
 				Runnable runnable = (Runnable)dequeue();
 				runnable.run();
 			}catch(Exception e){

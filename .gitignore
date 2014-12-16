@@ -3,3 +3,6 @@
 
 #bin folder
 bin/
+/nbproject/private/
+/dist/
+/build/
