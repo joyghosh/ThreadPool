@@ -25,7 +25,7 @@ public class ThreadPool {
 		
 		//creating workers in the pool.
 		for(int i = 0; i< noOfWorkerThreads;i++){
-			threads.add(new WorkerThread());
+			threads.add(new WorkerThread(this));
 		}
 		
 		//starting the worker threads in pool.
@@ -44,20 +44,66 @@ public class ThreadPool {
 		this.counter = noOfTasks;
 	}
 	
+	
+	/**
+	 * Add task to Thread
+	 * @param task
+	 */
+	public synchronized void execute(Runnable task){
+		
+		if(this.isInActive) throw
+				new IllegalStateException("THREAD POOL STOPPED");
+		
+		addTask(task);
+	}
+	
 	/**
 	 * add task to queue.
 	 * @param task
 	 */
-	public synchronized void addTask(Runnable task){
+	private synchronized void addTask(Runnable task){
 		
 		if(this.isTaskQueueDynamic){
-		
+			//Technically unlimited number of tasks.
 			this.taskQueue.add(task);
 			
-		}else if(this.counter > 0){
+		}else if(!this.isTaskQueueDynamic && this.counter > 0){
 			
+			//Bounded number of tasks.
 			this.taskQueue.add(task);
 			--this.counter;
+		}else{
+			
+			throw new IllegalStateException("BOUNDED TASK QUEUE");
 		}
+	}
+	
+	/**
+	 * Deactivate the thread pool.
+	 */
+	public synchronized void deactivate(){
+		this.isInActive = true;
+		
+		//Stop or suspend all the threads in the pool.
+		if(this.isTaskQueueDynamic){
+			
+			for(WorkerThread t:threads){
+				t.stopThread();
+				threads.add(new WorkerThread(this));
+			}
+		}else{
+			
+			for(WorkerThread t:threads)
+				t.stopThread();
+		}
+	}
+	
+	/**
+	 * 
+	 * @return Runnable instance of a task.
+	 */
+	public synchronized Runnable fetchTask(){
+		
+		return this.taskQueue.poll();
 	}
 }
