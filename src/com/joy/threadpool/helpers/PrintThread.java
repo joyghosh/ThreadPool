@@ -12,6 +12,9 @@ public class PrintThread extends Thread{
                 @Override
 		public void run(){
 			
-			System.out.println("Thread:"+this.getName()+", message: "+this.msg);
+                    for(int i=0;i<100;i++){
+                    		System.out.println("Hi!");
+                            System.out.println("Thread:"+this.getName()+", message: "+this.msg);
+                    }
 		}
 }

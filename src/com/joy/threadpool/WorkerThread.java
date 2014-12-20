@@ -1,32 +1,30 @@
 package com.joy.threadpool;
 
 public class WorkerThread extends Thread{
-	private ThreadPool tp = null;
+	//	private ThreadPool tp = null;
+	private IQueue<Runnable> taskQueue;
 	private boolean isStopped = false;
+	private String threadId;
 	
-	public WorkerThread(ThreadPool tp){
-		this.tp = tp;
+	public WorkerThread(IQueue taskQueue,String threadId){
+//		this.tp = tp;
+		this.taskQueue = taskQueue;
+		this.threadId = threadId;
 	}
 	
 	public void run(){
 		while(!this.isStopped){
 			try{
-				Runnable runnable = (Runnable)dequeue();
-				runnable.run();
+				Runnable runnable = (Runnable)this.taskQueue.dequeue();
+				if(!runnable.equals(null))
+					runnable.run();
+				else{
+					System.out.println("No tasks in the queue.");
+				}
 			}catch(Exception e){
 				
 			}
 		}
-	}
-	
-	/**
-	 * 
-	 * @return Runnable instance of a task.
-	 */
-	private synchronized Runnable dequeue(){
-		
-		return
-		   this.tp.fetchTask();
 	}
 	
 	/**
@@ -39,11 +37,18 @@ public class WorkerThread extends Thread{
 	
 	/**
 	 * 
-	 * @return the status of the worker thread.
+	 * @return status of the worker thread.
 	 */
 	public synchronized boolean isStopped(){
 		
-		return 
-		    this.isStopped;
+		return this.isStopped;
+	}
+	
+	/**
+	 * 
+	 * @return assigned thread id.
+	 */
+	public String getThreadId(){
+		return this.threadId;
 	}
 }
