@@ -63,7 +63,6 @@ public class TaskQueue<T> implements IQueue<T>{
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-//					System.out.println("Exception message: "+e.getMessage());
 				}
 			}
 			return this.taskQueue.poll();

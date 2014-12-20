@@ -1,13 +1,11 @@
 package com.joy.threadpool;
 
 public class WorkerThread extends Thread{
-	//	private ThreadPool tp = null;
 	private IQueue<Runnable> taskQueue;
 	private boolean isStopped = false;
 	private String threadId;
 	
-	public WorkerThread(IQueue taskQueue,String threadId){
-//		this.tp = tp;
+	public WorkerThread(IQueue<Runnable> taskQueue,String threadId){
 		this.taskQueue = taskQueue;
 		this.threadId = threadId;
 	}
@@ -36,7 +34,6 @@ public class WorkerThread extends Thread{
 	}
 	
 	/**
-	 * 
 	 * @return status of the worker thread.
 	 */
 	public synchronized boolean isStopped(){
@@ -45,7 +42,6 @@ public class WorkerThread extends Thread{
 	}
 	
 	/**
-	 * 
 	 * @return assigned thread id.
 	 */
 	public String getThreadId(){

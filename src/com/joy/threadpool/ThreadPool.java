@@ -3,17 +3,12 @@ package com.joy.threadpool;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-//import java.util.concurrent.ArrayBlockingQueue;
-//import java.util.Queue;
-//import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ThreadPool {
 	
 	private IQueue<Runnable> taskQueue = null;
 	private List<WorkerThread> threads = new ArrayList<WorkerThread>();
 	private boolean isInActive = false;
-//	private boolean isTaskQueueDynamic = false;
-//	private int counter = 0;
 	private final int THREAD_POOL_SIZE;
 	
 	/**
@@ -24,9 +19,7 @@ public class ThreadPool {
 	public ThreadPool(int THREAD_POOL_SIZE){
 		
 		this.THREAD_POOL_SIZE = THREAD_POOL_SIZE; 
-//		this.isTaskQueueDynamic = true;
 		this.taskQueue = new TaskQueue<Runnable>();
-		
 		init();
 	}
 	
@@ -39,7 +32,6 @@ public class ThreadPool {
 		
 		this.THREAD_POOL_SIZE = THREAD_POOL_SIZE;
 		this.taskQueue = new TaskQueue<Runnable>(noOfTasks);
-		
 		init();
 	}
 	
@@ -85,20 +77,6 @@ public class ThreadPool {
 	 */
 	private synchronized void enqueue(Runnable task) throws Exception{
 		
-//		if(this.isTaskQueueDynamic){
-//			//Technically unlimited number of tasks.
-//			this.taskQueue.enqueue(task);
-//			
-//		}else if(!this.isTaskQueueDynamic && this.counter > 0){
-//			
-//			//Bounded number of tasks.
-//			this.taskQueue.offer(task);
-//			--this.counter;
-//		}else{
-//			
-//			throw new IllegalStateException("BOUNDED TASK QUEUE");
-//		}
-		
 			this.taskQueue.enqueue(task);
 	}
 	
@@ -108,7 +86,6 @@ public class ThreadPool {
 	 */
 	public synchronized Runnable dequeue(){
 		
-//		return this.taskQueue.poll();
 		return this.taskQueue.dequeue();
 	}
 	
@@ -117,30 +94,6 @@ public class ThreadPool {
 	 */
 	public synchronized boolean deactivate(){
 		this.isInActive = true;
-		
-//		System.out.println(normal);
-		
-//		//Stop or suspend all the threads in the pool.
-//		if(normal==true){	
-//			
-//			for(WorkerThread t:threads){
-//				t.stop();
-//				System.out.println("Thread: "+t.getName()+" stopped");
-//			}
-//		}else{
-//			
-//			if(this.isTaskQueueDynamic){
-//				
-//				for(WorkerThread t:threads){
-//					t.stopThread();
-//					threads.add(new WorkerThread(this));
-//				}
-//			}else{
-//				
-//				for(WorkerThread t:threads)
-//					t.stopThread();
-//			}
-//		}
 		
 		for(WorkerThread t:threads)
 			t.stopThread();

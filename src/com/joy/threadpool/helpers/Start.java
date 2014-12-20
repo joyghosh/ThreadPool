@@ -50,14 +50,8 @@ public class Start {
 		
 		
 		tp.deactivate();
-//             if(tp.deactivate(false)){
-//            	
-//            	 System.out.println("Thread pool deactivated successfully!");
-//             }else{
-//            	 System.out.println("Thread pool deactivated abnormally!");
-//             }
 		
-             System.out.println("Ending main");
+        System.out.println("Ending main");
 	}
 
 }
