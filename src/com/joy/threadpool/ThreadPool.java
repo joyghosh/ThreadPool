@@ -66,8 +66,12 @@ public class ThreadPool {
 	}
 	
 	/*TODO add capability for batch job addition.*/
-	public synchronized void execute(Collection<Runnable> collection){
-		//TODO
+	public synchronized void execute(Collection<Runnable> tasks) throws Exception{
+		
+		if(this.isInActive) throw
+				new IllegalStateException("THREAD POOL INACTIVE");
+		
+		enqueue(tasks);
 	}
 	
 	/**
@@ -78,6 +82,16 @@ public class ThreadPool {
 	private synchronized void enqueue(Runnable task) throws Exception{
 		
 			this.taskQueue.enqueue(task);
+	}
+	
+	/**
+	 * add job batch to queue.
+	 * @param tasks batch of jobs
+	 * @throws Exception 
+	 */
+	private synchronized void enqueue(Collection<Runnable> tasks) throws Exception{
+		
+			this.taskQueue.enqueue(tasks);
 	}
 	
 	/**

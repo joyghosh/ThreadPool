@@ -1,5 +1,6 @@
 package com.joy.threadpool;
 
+import java.util.Collection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -44,6 +45,25 @@ public class TaskQueue<T> implements IQueue<T>{
 		notifyAll();
 	}
 
+	
+	@Override
+	public void enqueue(Collection<? extends T> tasks) throws Exception {
+		
+		if(this.isBounded){
+			if(tasks.size()<=this.TASK_QUEUE_SIZE){
+				this.taskQueue.addAll(tasks);	//TODO: seriously? Think about it.
+				this.TASK_QUEUE_SIZE = this.TASK_QUEUE_SIZE - tasks.size();
+			}else{
+				throw new Exception("BOUNDED TASK QUEUE");
+			}
+				return;
+		}
+		
+		this.taskQueue.addAll(tasks);
+		notifyAll();
+	}
+	
+	
 	@Override
 	public synchronized T dequeue() {
 		
