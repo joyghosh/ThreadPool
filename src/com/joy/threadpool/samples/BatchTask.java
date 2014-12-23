@@ -45,6 +45,7 @@ public class BatchTask{
 				this.tp.execute(this.tasks);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
 				System.out.println("Exception: "+e.getMessage());
 			}
 		}

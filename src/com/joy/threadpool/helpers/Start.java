@@ -52,7 +52,8 @@ public class Start {
 //		
 //		tp.deactivate();
 		
-		new BatchTask(5);
+		BatchTask bt = new BatchTask(5);
+		bt.startBatchTask();
 		
 		try {
 			
