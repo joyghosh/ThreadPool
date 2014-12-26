@@ -40,14 +40,14 @@ public class TaskQueue<T> implements IQueue<T>{
 			}
 				return;
 		}
-		
+	
 		this.taskQueue.add(task);
 		notifyAll();
 	}
 
 	
 	@Override
-	public void enqueue(Collection<? extends T> tasks) throws Exception {
+	public synchronized void enqueue(Collection<T> tasks) throws Exception {
 		
 		if(this.isBounded){
 			if(tasks.size()<=this.TASK_QUEUE_SIZE){
@@ -59,6 +59,7 @@ public class TaskQueue<T> implements IQueue<T>{
 				return;
 		}
 		
+//		System.out.println("Collection: "+tasks);
 		this.taskQueue.addAll(tasks);
 		notifyAll();
 	}

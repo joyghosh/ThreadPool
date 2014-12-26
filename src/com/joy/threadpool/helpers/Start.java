@@ -3,6 +3,9 @@ package com.joy.threadpool.helpers;
 import com.joy.threadpool.ThreadPool;
 import com.joy.threadpool.samples.BatchTask;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 public class Start {
 
 	public static void main(String[] args) {
@@ -54,14 +57,15 @@ public class Start {
 		
 		BatchTask bt = new BatchTask(5);
 		bt.startBatchTask();
-		
+
 		try {
-			
 			Thread.sleep(20000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+//		bt.stopBatch();
 		
         System.out.println("Ending main");
 	}
